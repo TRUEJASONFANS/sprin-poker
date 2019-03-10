@@ -142,4 +142,8 @@ public class SocketSessionRegistry {
       return updateRooms;
     }
   }
+
+  public boolean hasRoom(String roomName) {
+    return roomId2Room.values().stream().filter(r-> r.getName().equalsIgnoreCase(roomName)).findAny().isPresent();
+  }
 }

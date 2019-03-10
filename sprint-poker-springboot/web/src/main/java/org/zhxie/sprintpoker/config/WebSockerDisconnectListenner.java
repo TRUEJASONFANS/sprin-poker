@@ -24,8 +24,8 @@ public class WebSockerDisconnectListenner implements ApplicationListener<Session
     final List<Room> rooms = socketSessionRegistry.removeUser(event.getUser().getName());
     for (Room room: rooms) {
       String roomName = room.getName();
+      if(!roomName.isEmpty() && socketSessionRegistry.hasRoom(roomName))
       template.convertAndSend("/pocker/pockerBoard/"+ roomName, socketSessionRegistry.getPlayersByRoomID(roomName));
     }
-
   }
 }
