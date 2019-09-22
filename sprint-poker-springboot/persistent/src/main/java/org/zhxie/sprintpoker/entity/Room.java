@@ -101,4 +101,8 @@ public class Room {
     public SingleGameRecord getCurPageSingleGRecord(int curPage) {
         return  gameRecord.getCurPage(curPage);
     }
+
+    public void addStory() {
+        gameRecord.addStory();
+    }
 }

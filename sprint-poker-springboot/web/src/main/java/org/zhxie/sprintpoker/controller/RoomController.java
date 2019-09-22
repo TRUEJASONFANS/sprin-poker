@@ -5,6 +5,8 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.zhxie.sprintpoker.entity.Room;
 import org.zhxie.sprintpoker.entity.game.SingleGameRecord;
 import org.zhxie.sprintpoker.entity.dto.GameDTO;
@@ -63,5 +65,13 @@ public class RoomController {
     singleGameRecord.setReset(true);
     return singleGameRecord;
   }
+
+  @MessageMapping("/onAddStory/{roomName}")
+  @SendTo("/pocker/pockerBoard/{roomName}")
+  public GameDTO onAddStory(@RequestBody String roomName, @RequestBody Integer curPage, @RequestBody Integer totalPage) {
+      webAgentSessionRegistry.onAddStory(roomName, totalPage);
+      return webAgentSessionRegistry.getSingleGameRecord(roomName, curPage);
+  }
+
 
 }

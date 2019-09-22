@@ -169,4 +169,11 @@ public class SocketSessionRegistry {
       room.nextGame(curPage);
     }
   }
+
+  public void onAddStory(String roomName, Integer totalPage) {
+    Room room = roomId2Room.get(roomName);
+    if (room != null) {
+      room.addStory();
+    }
+  }
 }

@@ -8,7 +8,8 @@ import java.util.List;
 @Data
 public class RoomGameRecord {
 
-  private List<SingleGameRecord> recordList = Lists.newArrayList();
+  // The default size should >=1
+  private List<SingleGameRecord> recordList = Lists.newArrayList(new SingleGameRecord());
   private String roomName = "";
 
   public int getTotalGameRecord() {
@@ -20,10 +21,10 @@ public class RoomGameRecord {
   }
 
   public SingleGameRecord getCurPage(int selectedGameIndex) {
-    if (selectedGameIndex <0 || selectedGameIndex >= recordList.size()) {
+    if (selectedGameIndex <=0 || selectedGameIndex > recordList.size()) {
       throw new UnsupportedOperationException("Error Index");
     }
-    return recordList.get(selectedGameIndex);
+    return recordList.get(selectedGameIndex - 1);
   }
 
 
@@ -34,12 +35,22 @@ public class RoomGameRecord {
   }
 
   public void resetPage(int selectPage) {
-    recordList.set(selectPage, new SingleGameRecord());
+    if (selectPage <=0 || selectPage > recordList.size()) {
+      throw new UnsupportedOperationException("Error Index");
+    }
+    recordList.set(selectPage - 1, new SingleGameRecord());
   }
 
   public void addScoreRecord(String playerName, String roomName) {
     for (SingleGameRecord record : recordList) {
       record.addScoreRecord(playerName, roomName);
     }
+  }
+
+  /*
+    Add a new story/ internal task
+   */
+  public void addStory() {
+    recordList.add(new SingleGameRecord());
   }
 }
