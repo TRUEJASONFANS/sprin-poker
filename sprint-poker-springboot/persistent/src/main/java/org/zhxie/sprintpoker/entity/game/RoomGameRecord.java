@@ -34,6 +34,7 @@ public class RoomGameRecord {
     }
   }
 
+
   public void resetPage(int selectPage) {
     if (selectPage <=0 || selectPage > recordList.size()) {
       throw new UnsupportedOperationException("Error Index");
